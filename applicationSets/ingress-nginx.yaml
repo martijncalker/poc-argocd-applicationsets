@@ -8,7 +8,7 @@ spec:
   - clusters:
       selector:
           matchLabels:
-              nl.vancalker.managedservices/ingress-nginx-install: true
+              nl.vancalker.managedservices/ingress-nginx-install: 'true'
   template:
     metadata:
         name: '{{ cluster.name }}-{{ name }}'
