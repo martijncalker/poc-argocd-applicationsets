@@ -3,8 +3,6 @@ kind: ApplicationSet
 metadata:
   name: cert-manager
   namespace: argocd
-  labels:
-      revision: '{{ metadata.labels.nl.vancalker.managedservices/kyverno-install-version }}'
 spec:
   generators:
   - clusters:
@@ -14,6 +12,8 @@ spec:
   template:
     metadata:
         name: '{{ name }}-cert-manager'
+        labels:
+            revision: '{{ metadata.labels.nl.vancalker.managedservices/kyverno-install-version }}'
     spec:
         project: 'default'
         source:
