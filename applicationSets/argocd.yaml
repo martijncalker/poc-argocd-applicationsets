@@ -3,6 +3,8 @@ kind: ApplicationSet
 metadata:
   name: argocd
   namespace: argocd
+  labels:
+      revision: '{{ metadata.labels.nl.vancalker.managedservices/kyverno-install-version }}'
 spec:
   generators:
   - clusters:
