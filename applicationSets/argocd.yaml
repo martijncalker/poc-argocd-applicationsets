@@ -11,7 +11,7 @@ spec:
               nl.vancalker.managedservices/argocd-install: 'true'
   template:
     metadata:
-        name: '{{ cluster.name }}-{{ name }}'
+        name: '{{ name }}-argocd'
     spec:
         project: 'default'
         source:

@@ -11,7 +11,7 @@ spec:
               nl.vancalker.managedservices/ingress-nginx-install: 'true'
   template:
     metadata:
-        name: '{{ cluster.name }}-{{ name }}'
+        name: '{{ name }}-ingress-nginx'
     spec:
         project: 'default'
         source:
