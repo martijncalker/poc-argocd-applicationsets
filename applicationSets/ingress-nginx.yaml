@@ -15,7 +15,7 @@ spec:
     spec:
         project: 'default'
         source:
-            repoUrl: 'https://gitlab.com/martijncalker/poc-argocd-kubernetes-applicationsets.git'
+            repoURL: 'https://gitlab.com/martijncalker/poc-argocd-kubernetes-applicationsets.git'
             targetRevision: '{{ metadata.labels.nl.vancalker.managedservices/ingress-nginx-version }}'
             path: '/applications/{{ metadata.labels.version }}/ingress-nginx'
         destination:
