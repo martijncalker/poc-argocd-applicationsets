@@ -9,18 +9,18 @@ spec:
   - clusters:
       selector:
           matchLabels:
-              managedservices.argocd: '*'
+              managedservices.argocd/install: 'true'
   template:
     metadata:
         name: '{{ .cluster }}-argocd'
         labels:
-            revision: '{{default "HEAD" index .metadata.annotations "managedservices.argocd"}}'
+            revision: '{{default "HEAD" index .metadata.annotations "managedservices.argocd/revision"}}'
             kubernetes: '{{ index .metadata.annotations "kubernetes.version" }}'
     spec:
         project: 'default'
         source:
             repoURL: 'https://gitlab.com/martijncalker/poc-argocd-kubernetes-applicationsets.git'
-            targetRevision: '{{default "HEAD" index .metadata.annotations "managedservices.argocd"}}'
+            targetRevision: '{{default "HEAD" index .metadata.annotations "managedservices.argocd/revision"}}'
             path: 'applications/{{ index .metadata.annotations "kubernetes.version" }}/argocd/'
         destination:
             server: '{{ .server }}'
