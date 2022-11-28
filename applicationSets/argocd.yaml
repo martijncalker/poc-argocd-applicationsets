@@ -23,7 +23,7 @@ spec:
             targetRevision: '{{ index .metadata.annotations "managedservices.argocd/revision" | default "HEAD" }}'
             path: 'applications/{{ index .metadata.annotations "kubernetes.version" }}/argocd/'
         destination:
-            server: '{{ .name }}'
+            server: '{{ .server }}'
             namespace: 'argocd'
         syncPolicy:
             automated:
