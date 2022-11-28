@@ -22,5 +22,5 @@ metadata:
 ## Hints:
 
 - Install ArgoCD based on the [latest manifest](https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/ha/install.yaml)
-- Make sure to add [this repository](applications/1.24/argocd/repository) to ArgoCD
-- Add the [application](applications/1.24/argocd/applicaion.yaml) that will sync all the [ApplicationSets](applicationSets)
+- Make sure to add [this repository](applications/1.24/argocd/repositories.yaml) to ArgoCD
+- Add the [application](applications/1.24/argocd/application.yaml) that will sync all the [ApplicationSets](applicationSets)
