@@ -12,7 +12,7 @@ spec:
               managedservices.argocd/install: 'true'
   template:
     metadata:
-        name: '{{ .cluster }}-argocd'
+        name: '{{ .name }}-argocd'
         labels:
             revision: '{{ index .metadata.annotations "managedservices.argocd/revision" | default "HEAD" }}'
             kubernetes: '{{ index .metadata.annotations "kubernetes.version" }}'
@@ -23,7 +23,7 @@ spec:
             targetRevision: '{{ index .metadata.annotations "managedservices.argocd/revision" | default "HEAD" }}'
             path: 'applications/{{ index .metadata.annotations "kubernetes.version" }}/argocd/'
         destination:
-            server: '{{ .server }}'
+            server: '{{ .name }}'
             namespace: 'argocd'
         syncPolicy:
             automated:
