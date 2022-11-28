@@ -13,7 +13,6 @@ spec:
     metadata:
         name: '{{ name }}-ingress-nginx'
         labels:
-            revision: '{{ metadata.labels.managedservices.ingress-nginx/version }}'
             kubernetes: '{{ metadata.labels.version }}'
     spec:
         project: 'default'
