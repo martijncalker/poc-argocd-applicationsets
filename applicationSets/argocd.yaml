@@ -14,13 +14,13 @@ spec:
     metadata:
         name: '{{ .cluster }}-argocd'
         labels:
-            revision: '{{default "HEAD" index .metadata.annotations "managedservices.argocd/revision"}}'
+            revision: '{{ index .metadata.annotations "managedservices.argocd/revision" | default "HEAD" }}'
             kubernetes: '{{ index .metadata.annotations "kubernetes.version" }}'
     spec:
         project: 'default'
         source:
             repoURL: 'https://gitlab.com/martijncalker/poc-argocd-kubernetes-applicationsets.git'
-            targetRevision: '{{default "HEAD" index .metadata.annotations "managedservices.argocd/revision"}}'
+            targetRevision: '{{ index .metadata.annotations "managedservices.argocd/revision" | default "HEAD" }}'
             path: 'applications/{{ index .metadata.annotations "kubernetes.version" }}/argocd/'
         destination:
             server: '{{ .server }}'
