@@ -8,7 +8,7 @@ spec:
   - clusters:
       selector:
           matchLabels:
-              cert-manager/install: 'true'
+              managedservices.cert-manager/install: 'true'
   template:
     metadata:
         name: '{{ name }}-cert-manager'

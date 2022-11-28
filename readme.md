@@ -9,9 +9,9 @@ Proof of concept to manage multiple applications based on cluster-labels.
 metadata:
     labels:
         # Install ArgoCD
-        nl.vancalker.managedservices.argocd/install=true 
+        managedservices.argocd/install=true 
         # Specify this repo revision (branch, HEAD, tag, SHA)
-        nl.vancalker.managedservices.argocd/version=HEAD 
+        managedservices.argocd/version=HEAD 
         # Target cluster version
         version=1.24
 ```
