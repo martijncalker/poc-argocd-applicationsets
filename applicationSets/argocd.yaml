@@ -8,18 +8,18 @@ spec:
   - clusters:
       selector:
           matchLabels:
-              nl.vancalker.managedservices.argocd/install: 'true'
+              managedservices.argocd/install: 'true'
   template:
     metadata:
         name: '{{ name }}-argocd'
         labels:
-            revision: '{{ metadata.labels.nl.vancalker.managedservices.argocd/version }}'
+            revision: '{{ metadata.labels.managedservices.argocd/version }}'
             kubernetes-version: '{{ metadata.labels.version }}'
     spec:
         project: 'default'
         source:
             repoURL: 'https://gitlab.com/martijncalker/poc-argocd-kubernetes-applicationsets.git'
-            targetRevision: '{{ metadata.labels.nl.vancalker.managedservices.argocd/version }}'
+            targetRevision: '{{ metadata.labels.managedservices.argocd/version }}'
             path: 'applications/{{ metadata.labels.version }}/argocd/'
         destination:
             server: '{{ server }}'

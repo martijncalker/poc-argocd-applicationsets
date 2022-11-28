@@ -8,18 +8,18 @@ spec:
   - clusters:
       selector:
           matchLabels:
-              nl.vancalker.managedservices.cert-manager/install: 'true'
+              cert-manager/install: 'true'
   template:
     metadata:
         name: '{{ name }}-cert-manager'
         labels:
-            revision: '{{ metadata.labels.nl.vancalker.managedservices.cert-manager/version }}'
+            revision: '{{ metadata.labels.managedservices.cert-manager/version }}'
             kubernetes-version: '{{ metadata.labels.version }}'
     spec:
         project: 'default'
         source:
             repoURL: 'https://gitlab.com/martijncalker/poc-argocd-kubernetes-applicationsets.git'
-            targetRevision: '{{ metadata.labels.nl.vancalker.managedservices.cert-manager/version }}'
+            targetRevision: '{{ metadata.labels.managedservices.cert-manager/version }}'
             path: 'applications/{{ metadata.labels.version }}/cert-manager/'
         destination:
             server: '{{ server }}'
