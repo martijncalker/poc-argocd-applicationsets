@@ -14,7 +14,7 @@ spec:
         name: '{{ name }}-argocd'
         labels:
             revision: '{{ metadata.labels.managedservices.argocd/version }}'
-            kubernetes-version: '{{ metadata.labels.version }}'
+            kubernetes: '{{ metadata.labels.version }}'
     spec:
         project: 'default'
         source:

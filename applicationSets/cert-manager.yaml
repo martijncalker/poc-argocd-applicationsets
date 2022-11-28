@@ -14,7 +14,7 @@ spec:
         name: '{{ name }}-cert-manager'
         labels:
             revision: '{{ metadata.labels.managedservices.cert-manager/version }}'
-            kubernetes-version: '{{ metadata.labels.version }}'
+            kubernetes: '{{ metadata.labels.version }}'
     spec:
         project: 'default'
         source:
