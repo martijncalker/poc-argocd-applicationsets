@@ -13,6 +13,7 @@ spec:
     metadata:
         name: '{{ name }}-argocd'
         labels:
+            revision: '{{ metadata.labels.managedservices.argocd/version }}'
             kubernetes: '{{ metadata.labels.version }}'
     spec:
         project: 'default'

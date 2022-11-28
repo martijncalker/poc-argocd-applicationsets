@@ -13,6 +13,7 @@ spec:
     metadata:
         name: '{{ name }}-kyverno'
         labels:
+            revision: '{{ metadata.labels.managedservices.kyverno/version }}'
             kubernetes: '{{ metadata.labels.version }}'
     spec:
         project: 'default'
