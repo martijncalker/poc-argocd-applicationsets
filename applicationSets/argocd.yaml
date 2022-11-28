@@ -4,25 +4,26 @@ metadata:
   name: argocd
   namespace: argocd
 spec:
+  goTemplate: true
   generators:
   - clusters:
       selector:
           matchLabels:
-              managedservices.argocd/install: 'true'
+              managedservices.argocd: '*'
   template:
     metadata:
-        name: '{{ name }}-argocd'
+        name: '{{ .cluster }}-argocd'
         labels:
-            revision: '{{ metadata.labels.managedservices.argocd/version }}'
-            kubernetes: '{{ metadata.labels.version }}'
+            revision: '{{default "HEAD" index .metadata.annotations "managedservices.argocd"}}'
+            kubernetes: '{{ index .metadata.annotations "kubernetes.version" }}'
     spec:
         project: 'default'
         source:
             repoURL: 'https://gitlab.com/martijncalker/poc-argocd-kubernetes-applicationsets.git'
-            targetRevision: '{{ metadata.labels.managedservices.argocd/version }}'
-            path: 'applications/{{ metadata.labels.version }}/argocd/'
+            targetRevision: '{{default "HEAD" index .metadata.annotations "managedservices.argocd"}}'
+            path: 'applications/{{ index .metadata.annotations "kubernetes.version" }}/argocd/'
         destination:
-            server: '{{ server }}'
+            server: '{{ .server }}'
             namespace: 'argocd'
         syncPolicy:
             automated:
