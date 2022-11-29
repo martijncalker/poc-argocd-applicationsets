@@ -8,8 +8,9 @@ spec:
   generators:
   - clusters:
       selector:
-          matchLabels:
-              managedservices.argocd/install: 'true'
+          matchExpressions:
+          - key: metadata.labels.managedservices.argocd
+            operator: Exists
   template:
     metadata:
         name: '{{ .name }}-argocd'
