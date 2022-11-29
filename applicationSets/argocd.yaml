@@ -9,7 +9,7 @@ spec:
   - clusters:
       selector:
           matchExpressions:
-          - key: metadata.labels.managedservices.argocd
+          - key: managedservices.argocd
             operator: Exists
   template:
     metadata:
