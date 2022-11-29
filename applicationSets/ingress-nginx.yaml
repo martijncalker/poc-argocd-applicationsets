@@ -4,25 +4,27 @@ metadata:
   name: ingress-nginx
   namespace: argocd
 spec:
+  goTemplate: true
   generators:
   - clusters:
       selector:
-          matchLabels:
-              managedservices.ingress-nginx/install: 'true'
+          matchExpressions:
+          - key: managedservices.nginx
+            operator: Exists
   template:
     metadata:
-        name: '{{ name }}-ingress-nginx'
+        name: '{{ .name }}-ingress-nginx'
         labels:
-            revision: '{{ metadata.labels.managedservices.ingress-nginx/version }}'
-            kubernetes: '{{ metadata.labels.version }}'
+            revision: '{{ index .metadata.labels "managedservices.ingress-nginx" | default "HEAD" }}'
+            kubernetes: '{{ index .metadata.labels "kubernetes.version" }}'
     spec:
         project: 'default'
         source:
             repoURL: 'https://gitlab.com/martijncalker/poc-argocd-kubernetes-applicationsets.git'
-            targetRevision: '{{ metadata.labels.managedservices.ingress-nginx/version }}'
-            path: 'applications/{{ metadata.labels.version }}/ingress-nginx/'
+            targetRevision: '{{ index .metadata.labels "managedservices.ingress-nginx" | default "HEAD" }}'
+            path: 'applications/{{ index .metadata.labels "kubernetes.version" }}/ingress-nginx/'
         destination:
-            server: '{{ server }}'
+            server: '{{ .server }}'
             namespace: 'ingress-nginx'
         syncPolicy:
             automated:

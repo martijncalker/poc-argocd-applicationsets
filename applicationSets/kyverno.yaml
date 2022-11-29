@@ -4,25 +4,27 @@ metadata:
   name: kyverno
   namespace: argocd
 spec:
+  goTemplate: true
   generators:
   - clusters:
       selector:
-          matchLabels:
-              managedservices.kyverno/install: 'true'
+          matchExpressions:
+          - key: managedservices.kyverno
+            operator: Exists
   template:
     metadata:
-        name: '{{ name }}-kyverno'
+        name: '{{ .name }}-kyverno'
         labels:
-            revision: '{{ metadata.labels.managedservices.kyverno/version }}'
-            kubernetes: '{{ metadata.labels.version }}'
+            revision: '{{ index .metadata.labels "managedservices.kyverno" | default "HEAD" }}'
+            kubernetes: '{{ index .metadata.labels "kubernetes.version" }}'
     spec:
         project: 'default'
         source:
             repoURL: 'https://gitlab.com/martijncalker/poc-argocd-kubernetes-applicationsets.git'
-            targetRevision: '{{ metadata.labels.managedservices.kyverno/version }}'
-            path: 'applications/{{ metadata.labels.version }}/kyverno/'
+            targetRevision: '{{ index .metadata.labels "managedservices.kyverno" | default "HEAD" }}'
+            path: 'applications/{{ index .metadata.labels "kubernetes.version" }}/kyverno/'
         destination:
-            server: '{{ server }}'
+            server: '{{ .server }}'
             namespace: 'kyverno'
         syncPolicy:
             automated:

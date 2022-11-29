@@ -4,25 +4,27 @@ metadata:
   name: cert-manager
   namespace: argocd
 spec:
+  goTemplate: true
   generators:
   - clusters:
       selector:
-          matchLabels:
-              managedservices.cert-manager/install: 'true'
+          matchExpressions:
+          - key: managedservices.cert-manager
+            operator: Exists
   template:
     metadata:
-        name: '{{ name }}-cert-manager'
+        name: '{{ .name }}-cert-manager'
         labels:
-            revision: '{{ metadata.labels.managedservices.cert-manager/version }}'
-            kubernetes: '{{ metadata.labels.version }}'
+            revision: '{{ index .metadata.labels "managedservices.cert-manager" | default "HEAD" }}'
+            kubernetes: '{{ index .metadata.labels "kubernetes.version" }}'
     spec:
         project: 'default'
         source:
             repoURL: 'https://gitlab.com/martijncalker/poc-argocd-kubernetes-applicationsets.git'
-            targetRevision: '{{ metadata.labels.managedservices.cert-manager/version }}'
-            path: 'applications/{{ metadata.labels.version }}/cert-manager/'
+            targetRevision: '{{ index .metadata.labels "managedservices.cert-manager" | default "HEAD" }}'
+            path: 'applications/{{ index .metadata.labels "kubernetes.version" }}/cert-manager/'
         destination:
-            server: '{{ server }}'
+            server: '{{ .server }}'
             namespace: 'cert-manager'
         syncPolicy:
             automated:
